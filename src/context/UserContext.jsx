@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -24,6 +27,7 @@ export const UserContextProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    navigate('/')
   };
 
   // Function to check if user is logged in

@@ -31,13 +31,13 @@ const Dashboard = () => {
           width: "250px",
           backgroundColor: "#6A1B9A",
           color: "white",
-          padding: "20px",
+          padding: "20px 20px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
         }}
       >
-        <h2 style={{ color: "#fff", fontSize: "32px", marginBottom: "30px" }}>
+        <h2 style={{ color: "#fff", fontSize: "32px", marginTop: "30px" }}>
           Dashboard
         </h2>
 
@@ -61,7 +61,7 @@ const Dashboard = () => {
                   fontSize: "20px",
                   textDecoration: "none",
                   transition: "color 0.3s",
-                  cursor:'pointer'
+                  cursor: "pointer",
                 }}
                 onClick={logout}
               >
@@ -89,7 +89,9 @@ const Dashboard = () => {
         >
           <h1 style={{ fontSize: "36px", margin: 0 }}>Welcome Back!</h1>
           <div style={{ fontSize: "20px" }}>
-            <span>Logged in as: {user.email}</span>
+            <span>
+              Logged in as: <strong> {user.email}</strong>
+            </span>
           </div>
         </div>
 
@@ -150,6 +152,7 @@ const Dashboard = () => {
     </div>
   );
 };
+
 const linkStyle = {
   color: "white",
   fontSize: "20px",
