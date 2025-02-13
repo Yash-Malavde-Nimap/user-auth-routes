@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
 
 const Register = () => {
-  // State for email, password, and errors
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [buttonColor, setButtonColor] = useState("#4CAF50");
 
-  const handleSubmit = (e) => {
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate()
+
+  const handleRegister = (e) => {
     e.preventDefault();
-
-    if (email && password) {
-      alert("Logged In successfully");
-    }
-
+    login(email,password);
+    navigate('/dashboard')
     setEmail("");
-    setPassword("");
+    setPassword("");  
   };
 
   const handleMouseEnter = () => {
@@ -37,10 +37,12 @@ const Register = () => {
       }}
     >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleRegister}
         style={{
           display: "flex",
           flexDirection: "column",
+          // alignItems:'center',
+          // justifyItems:'center',
           padding: "40px 20px",
           borderRadius: "8px",
           backgroundColor: "#fff",
@@ -92,6 +94,7 @@ const Register = () => {
               border: "1px solid #ccc",
               borderRadius: "4px",
               boxSizing: "border-box",
+              // maxWidth:'100%',
             }}
           />
         </div>
@@ -151,20 +154,19 @@ const Register = () => {
           >
             Register
           </button>
-
-          <p
-            style={{
-              fontFamily: "sans-serif",
-              fontSize: "16px",
-              marginTop: "20px",
-            }}
-          >
-            Already an User,{" "}
-            <span>
-              <Link to="/login">Login</Link>
-            </span>
-          </p>
         </div>
+        <p
+          style={{
+            fontFamily: "sans-serif",
+            fontSize: "16px",
+            marginTop: "20px",
+          }}
+        >
+          Already have an account? Login{" "} 
+          <span>
+            <Link to="/login">here</Link>
+          </span>
+        </p>
       </form>
     </div>
   );

@@ -1,35 +1,23 @@
-/* eslint-disable react/prop-types */
-// import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../context/UserContext";
 
-const Login = (props) => {
-  // State for email, password, and errors
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [buttonColor, setButtonColor] = useState("#4CAF50");
 
-  const {isLoggedIn,setIsLoggedIn} = props;
-  console.log(isLoggedIn);
+  const { login } = useContext(UserContext);
 
-  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate()
+
+  const handleLogin = (e) => {
     e.preventDefault();
-
-    if (email && password) {
-      const payload = { email, password };
-      console.log(payload);
-      
-      if(email === 'yash@gmail.com' && password==='Yash1234'){
-        setIsLoggedIn(true);
-        navigate('/dashboard')
-        console.log("Logged in dashboard")
-      }
-    }
-
+    login(email,password);
+    navigate('/dashboard')
     setEmail("");
-    setPassword("");
+    setPassword("");  
   };
 
   const handleMouseEnter = () => {
@@ -51,7 +39,7 @@ const Login = (props) => {
       }}
     >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleLogin}
         style={{
           display: "flex",
           flexDirection: "column",
