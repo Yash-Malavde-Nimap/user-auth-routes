@@ -12,12 +12,26 @@ const Login = () => {
 
   const navigate = useNavigate()
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+
   const handleLogin = (e) => {
     e.preventDefault();
+
+    if(!email.match(emailRegex)){
+      alert('Please enter a proper email')
+      setEmail("");
+      return
+    }
+    
+    if(!password.match(passwordRegex)){
+      alert('Password should contain \n\nMinimum 8 characters in length.\nAt least one uppercase English letter.[A-Z]\nAt least one lowercase English letter.[a-z]\nAt least one digit.\nAt least one special character')
+      setPassword("");  
+      return
+    }
+
     login(email,password);
     navigate('/dashboard')
-    setEmail("");
-    setPassword("");  
   };
 
   const handleMouseEnter = () => {
