@@ -77,6 +77,7 @@ const Login = () => {
           padding: "40px 20px",
           borderRadius: "8px",
           backgroundColor: "#fff",
+          // opacity: "50%",
           boxShadow: "0 40px 80px rgba(0, 0, 0, 0.5)",
           width: "100%",
           maxWidth: "400px",

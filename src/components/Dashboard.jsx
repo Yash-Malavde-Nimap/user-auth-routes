@@ -75,7 +75,6 @@ const Dashboard = () => {
             </li>
             <li style={{ marginBottom: "20px" }}>
               <p
-                to="/logout"
                 style={{
                   color: "white",
                   fontSize: "20px",
@@ -187,7 +186,7 @@ const Dashboard = () => {
                 width: "200px",
                 display: "flex",
                 flexDirection: "column",
-                // gap:'20px'
+                gap: "10px",
                 // margin:'10px'
                 justifyContent: "center",
                 alignContent: "center",
@@ -197,7 +196,7 @@ const Dashboard = () => {
               }}
             >
               <div style={{ display: "flex", gap: "10px" }}>
-                <h2>{item.name}</h2>
+                <h3>{item.name}</h3>
                 {user.role === "admin" && (
                   <>
                     <button

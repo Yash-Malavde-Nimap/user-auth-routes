@@ -45,9 +45,11 @@ const Admin = () => {
           Admin
         </h2>
 
-        <nav style={{
-          marginBottom:'20px'
-        }}>
+        <nav
+          style={{
+            marginBottom: "20px",
+          }}
+        >
           <ul style={{ listStyle: "none", padding: 0 }}>
             <li style={{ marginBottom: "20px" }}>
               <Link to="/profile" style={linkStyle}>
