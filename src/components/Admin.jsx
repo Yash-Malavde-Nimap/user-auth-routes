@@ -1,15 +1,15 @@
 import { useContext } from "react";
-import UserContext from "../context/UserContext";
 import { Link } from "react-router-dom";
+import UserContext from "../context/UserContext";
 import ErrorLogout from "./ErrorLogout";
 
-const Dashboard = () => {
+const Admin = () => {
   const { isAuthenticated, user, logout } = useContext(UserContext);
 
   if (!isAuthenticated) {
     return (
       <>
-        <ErrorLogout page="Dashboard" />
+        <ErrorLogout page="Admin Panel" />
       </>
     );
   }
@@ -36,7 +36,7 @@ const Dashboard = () => {
         }}
       >
         <h2 style={{ color: "#fff", fontSize: "32px", marginTop: "30px" }}>
-          Dashboard
+          Admin Panel
         </h2>
 
         <nav>
@@ -158,4 +158,4 @@ const linkStyle = {
   transition: "color 0.3s",
 };
 
-export default Dashboard;
+export default Admin;

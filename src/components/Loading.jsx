@@ -1,25 +1,23 @@
 const Loading = () => {
-  // Inline CSS for the loader
   const loaderContainerStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh", // Full screen height
-    backgroundColor: "#F3E5F5", // Dark background color
+    height: "100vh",
+    backgroundColor: "#F3E5F5", 
   };
 
   const spinnerStyle = {
-    border: "8px solid #f3f3f3", // Light gray border
-    borderTop: "8px solid #8e24aa", // Green color for the spinning part
-    borderRadius: "50%", // Make it round
-    width: "60px", // Width of the spinner
-    height: "60px", // Height of the spinner
-    animation: "spin 2s linear infinite", // Spin animation
+    border: "8px solid #f3f3f3", 
+    borderTop: "8px solid #8e24aa", 
+    borderRadius: "50%", 
+    width: "60px", 
+    height: "60px", 
+    animation: "spin 2s linear infinite", 
   };
 
   return (
     <div style={loaderContainerStyle}>
-      {/* Add the animation keyframes via a style tag */}
       <style>
         {`
           @keyframes spin {

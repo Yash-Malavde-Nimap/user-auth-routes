@@ -52,6 +52,7 @@ const HomePage = () => {
         >
           Register
         </Link>
+
         <Link
           to="/login"
           style={{
@@ -90,6 +91,26 @@ const HomePage = () => {
           onMouseOut={(e) => (e.target.style.backgroundColor = "#6A1B9A")}
         >
           Dashboard
+        </Link>
+
+        <Link
+          to="/admin"
+          style={{
+            textDecoration: "none",
+            backgroundColor: "#6A1B9A",
+            padding: "15px 30px",
+            color: "white",
+            fontSize: "18px",
+            borderRadius: "8px",
+            textAlign: "center",
+            width: "200px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            transition: "background-color 0.3s, transform 0.3s",
+          }}
+          onMouseOver={(e) => (e.target.style.backgroundColor = "#5E35B1")}
+          onMouseOut={(e) => (e.target.style.backgroundColor = "#6A1B9A")}
+        >
+          Admin
         </Link>
       </div>
     </div>

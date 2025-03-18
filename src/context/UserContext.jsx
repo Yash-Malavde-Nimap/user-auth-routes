@@ -17,27 +17,23 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   // Login function that stores user data in localStorage
-  const login = (email, password) => {
-    const userData = { email, password };
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
+  const login = (user) => {
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   // Logout function that removes user data from localStorage
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
-    navigate('/')
+    navigate("/");
   };
 
   // Function to check if user is logged in
   const isAuthenticated = user !== null;
 
-
   return (
-    <UserContext.Provider
-      value={{ login, logout, isAuthenticated, user }}
-    >
+    <UserContext.Provider value={{ login, logout, isAuthenticated, user }}>
       {children}
     </UserContext.Provider>
   );

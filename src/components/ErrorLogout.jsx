@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
-const ErrorLogout = () => {
+const ErrorLogout = (props) => {
   return (
     <div
       style={{
@@ -29,9 +30,9 @@ const ErrorLogout = () => {
           You are not logged into your account
         </h1>
         <p style={{ color: "#333", fontSize: "18px", marginTop: "10px" }}>
-          Please log in to access your account to access the Dashboard
+          Please log in to access your account to access the {props.page}
         </p>
-        <div style={{display:'flex',gap:'10px',justifyContent:'center'}}>
+        <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
           <Link
             to="/login"
             style={{

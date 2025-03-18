@@ -3,35 +3,59 @@ import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const userData = {
+    email: "",
+    password: "",
+    role: "",
+  };
+
+  const [user, setUser] = useState(userData);
   const [buttonColor, setButtonColor] = useState("#4CAF50");
 
   const { login } = useContext(UserContext);
 
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+  const passwordRegex =
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if(!email.match(emailRegex)){
-      alert('Please enter a proper email')
-      setEmail("");
-      return
-    }
-    
-    if(!password.match(passwordRegex)){
-      alert('Password should contain \n\nMinimum 8 characters in length.\nAt least one uppercase English letter.[A-Z]\nAt least one lowercase English letter.[a-z]\nAt least one digit.\nAt least one special character')
-      setPassword("");  
-      return
+    if (!user.email.match(emailRegex)) {
+      alert("Please enter a proper email");
+      setUser((user.email = ""));
+      return;
     }
 
-    login(email,password);
-    navigate('/dashboard')
+    if (!user.password.match(passwordRegex)) {
+      alert(
+        "Password should contain \n\nMinimum 8 characters in length.\nAt least one uppercase English letter.[A-Z]\nAt least one lowercase English letter.[a-z]\nAt least one digit.\nAt least one special character"
+      );
+      setUser((user.password = ""));
+
+      return;
+    }
+
+    if (user.role === "") {
+      alert("Please Select Role");
+      return;
+    }
+
+    login(user);
+
+    //Redirecting to their respective logins role wise
+    if (user.role === "admin") {
+      navigate("/admin");
+    } else if (user.role === "user") {
+      navigate("/dashboard");
+    }
   };
 
   const handleMouseEnter = () => {
@@ -98,8 +122,10 @@ const Login = () => {
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            autoComplete="off"
+            value={user.email}
+            onChange={handleChange}
             // onKeyPress={handleKeyPressEmail}
             required
             style={{
@@ -135,8 +161,9 @@ const Login = () => {
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={user.password}
+            onChange={handleChange}
             // onKeyPress={handleKeyPressPW}
             required
             style={{
@@ -149,6 +176,28 @@ const Login = () => {
               boxSizing: "border-box",
             }}
           />
+        </div>
+
+        <div
+          style={{
+            marginBottom: "15px",
+          }}
+        >
+          <select
+            style={{
+              padding: "10px 5px",
+              borderRadius: "4px",
+              outline: "none",
+            }}
+            name="role"
+            id=""
+            value={user.role}
+            onChange={handleChange}
+          >
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
         </div>
 
         <div>
