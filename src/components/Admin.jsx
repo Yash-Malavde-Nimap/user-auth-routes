@@ -2,14 +2,15 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import ErrorLogout from "./ErrorLogout";
+// import { usersArray } from "../lib/constants";
 
 const Admin = () => {
   const { isAuthenticated, user, logout } = useContext(UserContext);
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || user.role !== "admin") {
     return (
       <>
-        <ErrorLogout page="Admin Panel" />
+        <ErrorLogout page="Admin Panel" message="You are not an Admin" />
       </>
     );
   }
@@ -26,24 +27,36 @@ const Admin = () => {
       {/* Sidebar */}
       <div
         style={{
-          width: "250px",
+          width: "200px",
+          height: "100vh",
+          position: "sticky",
+          top: "0px",
           backgroundColor: "#6A1B9A",
           color: "white",
-          padding: "20px 20px",
+          // padding: "20px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          // alignItems:"center"
+          paddingLeft: "20px",
         }}
       >
         <h2 style={{ color: "#fff", fontSize: "32px", marginTop: "30px" }}>
-          Admin Panel
+          Admin
         </h2>
 
-        <nav>
+        <nav style={{
+          marginBottom:'20px'
+        }}>
           <ul style={{ listStyle: "none", padding: 0 }}>
             <li style={{ marginBottom: "20px" }}>
               <Link to="/profile" style={linkStyle}>
                 Profile
+              </Link>
+            </li>
+            <li style={{ marginBottom: "20px" }}>
+              <Link to="/dashboard" style={linkStyle}>
+                Dashboard
               </Link>
             </li>
             <li style={{ marginBottom: "20px" }}>

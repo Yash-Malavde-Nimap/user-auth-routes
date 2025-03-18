@@ -1,35 +1,39 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import { emailRegex, passwordRegex, userSchema } from "../lib/constants";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({ ...userSchema, role: "user" });
   const [buttonColor, setButtonColor] = useState("#4CAF50");
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   const { login } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
-
   const handleRegister = (e) => {
     e.preventDefault();
 
-    if(!email.match(emailRegex)){
-      alert('Please enter a proper email')
-      setEmail("");
-      return
-    }
-    
-    if(!password.match(passwordRegex)){
-      alert('Password should contain \n\nMinimum 8 characters in length.\nAt least one uppercase English letter.[A-Z]\nAt least one lowercase English letter.[a-z]\nAt least one digit.\nAt least one special character')
-      setPassword("");  
-      return
+    if (!user.email.match(emailRegex)) {
+      alert("Please enter a proper email");
+      setUser("");
+      return;
     }
 
-    login(email,password);
-    navigate('/dashboard')
+    if (!user.password.match(passwordRegex)) {
+      alert(
+        "Password should contain \n\nMinimum 8 characters in length.\nAt least one uppercase English letter.[A-Z]\nAt least one lowercase English letter.[a-z]\nAt least one digit.\nAt least one special character"
+      );
+      setUser("");
+      return;
+    }
+
+    login(user);
+    navigate("/dashboard");
   };
 
   const handleMouseEnter = () => {
@@ -96,8 +100,9 @@ const Register = () => {
           <input
             type="email"
             id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={user.email}
+            onChange={handleChange}
             // onKeyPress={handleKeyPressEmail}
             required
             style={{
@@ -133,8 +138,9 @@ const Register = () => {
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={user.password}
+            onChange={handleChange}
             // onKeyPress={handleKeyPressPW}
             required
             style={{
@@ -176,7 +182,7 @@ const Register = () => {
             marginTop: "20px",
           }}
         >
-          Already have an account? Login{" "} 
+          Already have an account? Login
           <span>
             <Link to="/login">here</Link>
           </span>

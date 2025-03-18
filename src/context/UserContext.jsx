@@ -16,11 +16,13 @@ export const UserContextProvider = ({ children }) => {
     }
   }, []);
 
+
   // Login function that stores user data in localStorage
   const login = (user) => {
     setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
   };
+
 
   // Logout function that removes user data from localStorage
   const logout = () => {
@@ -29,6 +31,7 @@ export const UserContextProvider = ({ children }) => {
     navigate("/");
   };
 
+  
   // Function to check if user is logged in
   const isAuthenticated = user !== null;
 

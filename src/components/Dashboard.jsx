@@ -2,6 +2,7 @@ import { useContext } from "react";
 import UserContext from "../context/UserContext";
 import { Link } from "react-router-dom";
 import ErrorLogout from "./ErrorLogout";
+import { usersArray } from "../lib/constants";
 
 const Dashboard = () => {
   const { isAuthenticated, user, logout } = useContext(UserContext);
@@ -9,7 +10,10 @@ const Dashboard = () => {
   if (!isAuthenticated) {
     return (
       <>
-        <ErrorLogout page="Dashboard" />
+        <ErrorLogout
+          page="Dashboard"
+          message="You must be an User to Access the Dashboard"
+        />
       </>
     );
   }
@@ -18,34 +22,52 @@ const Dashboard = () => {
     <div
       style={{
         display: "flex",
-        height: "100vh",
         backgroundColor: "#F3E5F5",
         fontFamily: "sans-serif",
+        minHeight: "100vh",
       }}
     >
       {/* Sidebar */}
       <div
         style={{
-          width: "250px",
+          width: "200px",
+          height: "100vh",
+          position: "sticky",
+          top: "0px",
           backgroundColor: "#6A1B9A",
           color: "white",
-          padding: "20px 20px",
+          // padding: "20px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          // alignItems:"center"
+          paddingLeft: "20px",
         }}
       >
-        <h2 style={{ color: "#fff", fontSize: "32px", marginTop: "30px" }}>
+        <h2 style={{ color: "#fff", fontSize: "32px", paddingTop: "30px" }}>
           Dashboard
         </h2>
 
-        <nav>
+        <nav
+          style={{
+            marginBottom: "20px",
+          }}
+        >
           <ul style={{ listStyle: "none", padding: 0 }}>
             <li style={{ marginBottom: "20px" }}>
               <Link to="/profile" style={linkStyle}>
                 Profile
               </Link>
             </li>
+            {user.role === "admin" && (
+              <>
+                <li style={{ marginBottom: "20px" }}>
+                  <Link to="/admin" style={linkStyle}>
+                    Admin Panel
+                  </Link>
+                </li>
+              </>
+            )}
             <li style={{ marginBottom: "20px" }}>
               <Link to="/settings" style={linkStyle}>
                 Settings
@@ -145,6 +167,53 @@ const Dashboard = () => {
               Recent notifications and alerts will appear here.
             </p>
           </div>
+        </div>
+        <div
+          style={{
+            width: "100%",
+            // background: "black",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "20px",
+            flexWrap: "wrap",
+            marginTop: "40px",
+          }}
+        >
+          {usersArray?.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                width: "200px",
+                display: "flex",
+                flexDirection: "column",
+                // gap:'20px'
+                // margin:'10px'
+                justifyContent: "center",
+                alignContent: "center",
+                padding: "20px",
+                border: "1px solid gray",
+                borderRadius: "5px",
+              }}
+            >
+              <div style={{ display: "flex", gap: "10px" }}>
+                <h2>{item.name}</h2>
+                {user.role === "admin" && (
+                  <>
+                    <button
+                      style={{
+                        color: "red",
+                        padding: "1px 4px",
+                      }}
+                    >
+                      X
+                    </button>
+                  </>
+                )}
+              </div>
+              <p>{item.email}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

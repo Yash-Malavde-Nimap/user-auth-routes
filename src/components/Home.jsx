@@ -33,7 +33,7 @@ const HomePage = () => {
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-        <Link
+        {/* <Link
           to="/register"
           style={{
             textDecoration: "none",
@@ -51,7 +51,7 @@ const HomePage = () => {
           onMouseOut={(e) => (e.target.style.backgroundColor = "#D81B60")}
         >
           Register
-        </Link>
+        </Link> */}
 
         <Link
           to="/login"

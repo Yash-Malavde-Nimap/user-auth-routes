@@ -26,9 +26,7 @@ const ErrorLogout = (props) => {
           fontFamily: "sans-serif",
         }}
       >
-        <h1 style={{ color: "#ff6b6b", fontSize: "32px" }}>
-          You are not logged into your account
-        </h1>
+        <h1 style={{ color: "#ff6b6b", fontSize: "32px" }}>{props.message}</h1>
         <p style={{ color: "#333", fontSize: "18px", marginTop: "10px" }}>
           Please log in to access your account to access the {props.page}
         </p>

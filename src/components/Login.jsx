@@ -1,24 +1,15 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "../context/UserContext";
+import { emailRegex, passwordRegex, userSchema } from "../lib/constants";
 
 const Login = () => {
-  const userData = {
-    email: "",
-    password: "",
-    role: "",
-  };
-
-  const [user, setUser] = useState(userData);
+  const localData = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(localData || userSchema);
   const [buttonColor, setButtonColor] = useState("#4CAF50");
 
   const { login } = useContext(UserContext);
-
   const navigate = useNavigate();
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex =
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -39,7 +30,6 @@ const Login = () => {
         "Password should contain \n\nMinimum 8 characters in length.\nAt least one uppercase English letter.[A-Z]\nAt least one lowercase English letter.[a-z]\nAt least one digit.\nAt least one special character"
       );
       setUser((user.password = ""));
-
       return;
     }
 
@@ -77,6 +67,7 @@ const Login = () => {
       }}
     >
       <form
+        autoComplete="off"
         onSubmit={handleLogin}
         style={{
           display: "flex",
@@ -86,7 +77,7 @@ const Login = () => {
           padding: "40px 20px",
           borderRadius: "8px",
           backgroundColor: "#fff",
-          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.5)",
+          boxShadow: "0 40px 80px rgba(0, 0, 0, 0.5)",
           width: "100%",
           maxWidth: "400px",
         }}
@@ -123,7 +114,6 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
-            autoComplete="off"
             value={user.email}
             onChange={handleChange}
             // onKeyPress={handleKeyPressEmail}
@@ -136,6 +126,7 @@ const Login = () => {
               border: "1px solid #ccc",
               borderRadius: "4px",
               boxSizing: "border-box",
+              outline: "none",
               // maxWidth:'100%',
             }}
           />
@@ -174,6 +165,7 @@ const Login = () => {
               border: "1px solid #ccc",
               borderRadius: "4px",
               boxSizing: "border-box",
+              outline: "none",
             }}
           />
         </div>
@@ -229,7 +221,7 @@ const Login = () => {
         >
           Create an account{" "}
           <span>
-            <Link to="/register">here,</Link>
+            <Link to="/register">here</Link>
           </span>
         </p>
       </form>
